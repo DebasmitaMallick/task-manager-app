@@ -1,14 +1,45 @@
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+  SelectProps,
+} from "@mui/material";
 import { FC } from "react";
 
-const SelectBtn: FC<{options: string[]}> = ({ options, ...props }) => {
+type SelectBtnProps = SelectProps<string> & {
+  options: string[];
+  defaultVal: string;
+  onFilterChange: (type: string, e: SelectChangeEvent) => unknown;
+};
+
+const SelectBtn: FC<SelectBtnProps> = ({
+  options,
+  defaultVal,
+  onFilterChange,
+  ...props
+}) => {
   return (
-    <select {...props} className="rounded-3xl w-32 bg-white text-center py-2 border-2 border-stone-300 outline-0 cursor-pointer text-stone-500 font-medium">
-      {options.map((opt) => (
-        <option key={opt} value={opt}>
-          {opt}
-        </option>
-      ))}
-    </select>
+    <FormControl>
+      <InputLabel id="demo-simple-select-label">{defaultVal}</InputLabel>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        {...props}
+        label={defaultVal}
+        sx={{ borderRadius: 20, width: 128 }}
+        onChange={(e) =>
+          onFilterChange(defaultVal === "Category" ? "category" : "dueDate", e)
+        }
+      >
+        {options.map((opt) => (
+          <MenuItem key={opt} value={opt}>
+            {opt}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
   );
 };
 

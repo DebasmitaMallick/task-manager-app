@@ -31,7 +31,7 @@ const LoginBtn = ( ) => {
       role: "",
       pictureUrl: user.photoURL,
     };
-    console.log(data);
+
     const userId = user.uid.toString();
 
     const userDocRef = doc(usersRef, userId);
